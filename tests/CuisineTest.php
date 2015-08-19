@@ -24,7 +24,7 @@
         function test_getName()
         {
             //Arrange
-            $name = "VQ";
+            $name = "American";
             $test_cuisine = new Cuisine($name);
 
             //Act
@@ -37,7 +37,7 @@
         function test_getId()
         {
             //Arrange
-            $name = "VQ";
+            $name = "American";
             $id = 1;
             $test_cuisine = new Cuisine($name, $id);
 
@@ -51,7 +51,7 @@
         function test_save()
         {
             //Arrange
-            $name = "VQ";
+            $name = "American";
             $test_cuisine = new Cuisine($name);
             $test_cuisine->save();
 
@@ -65,8 +65,8 @@
         function test_getAll()
         {
             //Arrange
-            $name = "VQ";
-            $name2 = "Hot Lips Pizza";
+            $name = "American";
+            $name2 = "Italian";
             $test_cuisine = new Cuisine($name);
             $test_cuisine->save();
             $test_cuisine2 = new Cuisine($name2);
@@ -82,8 +82,8 @@
         function test_deleteAll()
         {
             //Arrange
-            $name = "VQ";
-            $name2 = "Hot Lips Pizza";
+            $name = "American";
+            $name2 = "Italian";
             $test_cuisine = new Cuisine($name);
             $test_cuisine->save();
             $test_cuisine2 = new Cuisine($name2);
@@ -100,18 +100,39 @@
         function testUpdate()
         {
             //Arrange
-            $name = "VQ";
+            $name = "American";
             $id = null;
             $test_cuisine = new Cuisine($name, $id);
             $test_cuisine->save();
 
-            $new_name = "Veritable Quandry";
+            $new_name = "American Fusion";
 
             //Act
             $test_cuisine->update($new_name);
 
             //Assert
-            $this->assertEquals("Veritable Quandry", $test_cuisine->getName());
+            $this->assertEquals("American Fusion", $test_cuisine->getName());
+        }
+
+        function testDelete()
+        {
+            //Arrange
+            $name = "American";
+            $id = null;
+            $test_cuisine = new Cuisine($name, $id);
+            $test_cuisine->save();
+
+            $name2 = "American Fusion";
+            $test_cuisine2 = new Cuisine($name2, $id);
+            $test_cuisine2->save();
+
+            //Act
+            $test_cuisine->delete();
+
+            //Assert
+            $this->assertEquals([$test_cuisine2], Cuisine::getAll());
+
+
         }
     }
 
