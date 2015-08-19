@@ -34,7 +34,18 @@
             $this->assertEquals($name, $result);
         }
 
+        function test_getId()
+        {
+            //Arrange
+            $name = "VQ";
+            $id = 1;
+            $test_Cuisine = new Cuisine($name, $id);
 
+            //Act
+            $result = $test_Cuisine->getId();
+
+            //Assert
+            $this->assertEquals(true, is_numeric($result));
         }
     }
 

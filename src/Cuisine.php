@@ -19,6 +19,11 @@
         {
             return $this->name;
         }
+
+        function getId()
+        {
+            return $this->id;
+        }
     }
 
 
