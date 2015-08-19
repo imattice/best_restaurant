@@ -61,6 +61,23 @@
             //Assert
             $this->assertEquals($test_category, $result[0]);
         }
+
+        function test_getAll()
+        {
+            //Arrange
+            $name = "VQ";
+            $name2 = "Hot Lips Pizza";
+            $test_Cuisine = new Cuisine($name);
+            $tese_Cuisine->save();
+            $test_Cuisine = new Cuisine($name2);
+            $test_Cuisine->save();
+
+            //Act
+            $result = Cuisine::getAll();
+
+            //Assert
+            $this->assertEquals([$test_Cuisine, $test_Cuisine2], $result);
+        }
     }
 
  ?>
