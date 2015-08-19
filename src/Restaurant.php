@@ -1,5 +1,5 @@
 <?php
-    class Resaurant
+    class Restaurant
     {
         private $restaurant_name;
         private $phone;
