@@ -30,7 +30,24 @@
             $GLOBALS['DB']->exec("INSERT INTO cuisines_table (name) VALUES ('{$this->getName()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
-    
+
+        static function getAll()
+        {
+            $db_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisines_table;");
+            $cuisines = array();
+            foreach ($db_cuisines as $cuisine){
+                $name = $cuisine['name'];
+                $id = $cuisine['id'];
+                $new_cuisine = new Cuisine($name, $id);
+                array_push($cuisines, $new_cuisine);
+            }
+            return $cuisines;
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM cuisines_table;");
+        }
     }
 
 

@@ -15,12 +15,12 @@
 
     class CuisineTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown()
-        // {
-        //     Cuisine::deleteAll();
-        //     Restaurant::deleteAll();
-        // }
-        //
+        protected function tearDown()
+        {
+            Cuisine::deleteAll();
+            //Restaurant::deleteAll();
+        }
+
         function test_getName()
         {
             //Arrange
@@ -59,7 +59,7 @@
             $result = Cuisine::getAll();
 
             //Assert
-            $this->assertEquals($test_category, $result[0]);
+            $this->assertEquals($test_Cuisine, $result[0]);
         }
 
         function test_getAll()
@@ -68,15 +68,33 @@
             $name = "VQ";
             $name2 = "Hot Lips Pizza";
             $test_Cuisine = new Cuisine($name);
-            $tese_Cuisine->save();
-            $test_Cuisine = new Cuisine($name2);
             $test_Cuisine->save();
+            $test_Cuisine2 = new Cuisine($name2);
+            $test_Cuisine2->save();
 
             //Act
             $result = Cuisine::getAll();
 
             //Assert
             $this->assertEquals([$test_Cuisine, $test_Cuisine2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $name = "VQ";
+            $name2 = "Hot Lips Pizza";
+            $test_Cuisine = new Cuisine($name);
+            $test_Cuisine->save();
+            $test_Cuisine2 = new Cuisine($name2);
+            $test_Cuisine2->save();
+
+            //Act
+            Cuisine::deleteAll();
+            $result = Cuisine::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
         }
     }
 
