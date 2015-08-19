@@ -15,17 +15,17 @@
 
     class RestaurantTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown()
-        // {
-        //     Cuisine::deleteAll();
-        //     Restaurant::deleteAll();
-        // }
+        protected function tearDown()
+        {
+            Cuisine::deleteAll();
+            Restaurant::deleteAll();
+        }
 
         function test_getRestaurantName()
         {
             //Arrange
             $restaurant_name = "VQ";
-            $phone = 5032277342;
+            $phone = '5032277342';
             $address = "1220 SW 1st Ave, Portland, OR 97204";
             $website = "http://www.veritablequandary.com/";
             $cuisine_id = 1;
@@ -43,7 +43,7 @@
         {
             //Arrange
             $restaurant_name = "VQ";
-            $phone = 5032277342;
+            $phone = '5032277342';
             $address = "1220 SW 1st Ave, Portland, OR 97204";
             $website = "http://www.veritablequandary.com/";
             $cuisine_id = 1;
@@ -61,7 +61,7 @@
         {
             //Arrange
             $restaurant_name = "VQ";
-            $phone = 5032277342;
+            $phone = '5032277342';
             $address = "1220 SW 1st Ave, Portland, OR 97204";
             $website = "http://www.veritablequandary.com/";
             $cuisine_id = 1;
@@ -79,7 +79,7 @@
         {
             //Arrange
             $restaurant_name = "VQ";
-            $phone = 5032277342;
+            $phone = '5032277342';
             $address = "1220 SW 1st Ave, Portland, OR 97204";
             $website = "http://www.veritablequandary.com/";
             $cuisine_id = 1;
@@ -102,7 +102,7 @@
             $test_cuisine->save();
 
             $restaurant_name = "VQ";
-            $phone = 5032277342;
+            $phone = '5032277342';
             $address = "1220 SW 1st Ave, Portland, OR 97204";
             $website = "http://www.veritablequandary.com/";
             $cuisine_id = 1;
@@ -120,7 +120,7 @@
         {
             //Arrange
             $restaurant_name = "VQ";
-            $phone = 5032277342;
+            $phone = '5032277342';
             $address = "1220 SW 1st Ave, Portland, OR 97204";
             $website = "http://www.veritablequandary.com/";
             $cuisine_id = 1;
@@ -133,6 +133,99 @@
             //Assert
             $this->assertEquals($id, $result);
         }
+
+        function test_save()
+        {
+            //Arrange
+            $name = "American";
+            $id = null;
+            $test_cuisine = new Cuisine($name, $id);
+            $test_cuisine->save();
+
+            $restaurant_name = "VQ";
+            $phone = '5032277342';
+            $address = "1220 SW 1st Ave, Portland, OR 97204";
+            $website = "http://www.veritablequandary.com/";
+            $cuisine_id = 1;
+            $id = null;
+            $test_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $cuisine_id, $id);
+
+            //Act
+            $test_restaurant->save();
+
+            //Assert
+            $result = Restaurant::getAll();
+            $this->assertEquals($test_restaurant, $result[0]);
+        }
+
+        function test_getAll()
+        {
+            //Arrange
+            $name = "American";
+            $id = null;
+            $test_cuisine = new Cuisine($name, $id);
+            $test_cuisine->save();
+
+            $restaurant_name = "VQ";
+            $phone = '5032277342';
+            $address = "1220 SW 1st Ave, Portland, OR 97204";
+            $website = "http://www.veritablequandary.com/";
+            //$id = null;
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $cuisine_id);
+            $test_restaurant->save();
+
+
+            $restaurant_name2 = "Hot Lips Pizza";
+            $phone2 = '5035952342';
+            $address2 = "721 NW 9th Ave #150, Portland, OR 97209";
+            $website2 = "http://hotlipspizza.com/";
+            //$id = null;
+            //$cuisine_id2 = $test_cuisine->getId();
+            $test_restaurant2 = new Restaurant($restaurant_name2, $phone2, $address2, $website2, $cuisine_id);
+            $test_restaurant2->save();
+
+
+            //Act
+            $result = Restaurant::getAll();
+            var_dump($test_restaurant);
+            var_dump($test_restaurant2);
+            var_dump($result);
+
+            //Assert
+            $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
+        }
+
+        function test_deleteAll()
+        {
+            //Arrange
+            $restaurant_name = "VQ";
+            $phone = '5032277342';
+            $address = "1220 SW 1st Ave, Portland, OR 97204";
+            $website = "http://www.veritablequandary.com/";
+            $id = null;
+            $cuisine_id = null;
+            $test_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $cuisine_id, $id);
+            $test_restaurant->save();
+
+            $restaurant_name2 = "Hot Lips Pizza";
+            $phone2 = '5035952342';
+            $address2 = "721 NW 9th Ave #150, Portland, OR 97209";
+            $website2 = "http://hotlipspizza.com/";
+            $id2 = null;
+            $cuisine_id2 = null;
+            $test_restaurant2 = new Restaurant($restaurant_name2, $phone2, $address2, $website2, $cuisine_id2, $id2);
+            $test_restaurant2->save();
+
+            //Act
+            Restaurant::deleteAll();
+
+            //Assert
+            $result = Restaurant::getAll();
+            $this->assertEquals([], $result);
+        }
+
+
 
     }
 

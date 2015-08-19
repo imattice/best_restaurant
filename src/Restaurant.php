@@ -26,7 +26,7 @@
 
         function setPhone($new_phone)
         {
-            $this->phone = (int) $new_phone;
+            $this->phone = (string) $new_phone;
         }
 
         function setAddress($new_address)
@@ -67,6 +67,34 @@
         function getId()
         {
             return $this->id;
+        }
+
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO restaurants_table (restaurant_name, phone, address, website, cuisine_id) VALUES ('{$this->getRestaurantName()}', '{$this->getPhone()}', '{$this->getAddress()}', '{$this->getWebsite()}', {$this->getCuisineId()});");
+            $this->id = $GLOBALS['DB']->lastInsertId();
+        }
+
+        static function getAll()
+        {
+            $db_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants_table;");
+            $restaurants = array();
+            foreach($db_restaurants as $restaurant) {
+                    $restaurant_name = $restaurant['restaurant_name'];
+                    $phone = $restaurant['phone'];
+                    $address = $restaurant['address'];
+                    $website = $restaurant['website'];
+                    $cuisine_id = $restaurant['cuisine_id'];
+                    $id = $restaurant['id'];
+                    $new_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $cuisine_id, $id);
+                    array_push($restaurants, $new_restaurant);
+            }
+            return $restaurants;
+        }
+
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants_table;");
         }
     }
  ?>
