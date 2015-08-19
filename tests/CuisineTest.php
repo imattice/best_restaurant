@@ -97,6 +97,23 @@
             $this->assertEquals([], $result);
         }
 
+        function test_find()
+        {
+            //Arrange
+            $name = "American";
+            $name2 = "Italian";
+            $test_cuisine = new Cuisine($name);
+            $test_cuisine->save();
+            $test_cuisine2 = new Cuisine($name2);
+            $test_cuisine2->save();
+
+            //Act
+            $result = Cuisine::find($test_cuisine->getId());
+
+            //Assert
+            $this->assertEquals($test_cuisine, $result);
+        }
+
         function testUpdate()
         {
             //Arrange

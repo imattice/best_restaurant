@@ -31,6 +31,17 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function update($new_name)
+        {
+            $GLOBALS['DB']->exec("UPDATE cuisines_table SET = '{$new_name}' WHERE id = {$this->getId()};");
+            $this->setName($new_name);
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM cuisines_table WHERE id = {$this->getId()};");
+        }
+
         static function getAll()
         {
             $db_cuisines = $GLOBALS['DB']->query("SELECT * FROM cuisines_table;");
@@ -44,20 +55,22 @@
             return $cuisines;
         }
 
+        static function find($search_id)
+        {
+            $found_cuisine = null;
+            $cuisines = Cuisine::getAll();
+            foreach ($cuisines as $cuisine) {
+                $cuisine_id = $cuisine->getId();
+                if ($cuisine_id == $search_id) {
+                    $found_cuisine = $cuisine;
+                }
+            }
+            return $found_cuisine;
+        }
+
         static function deleteAll()
         {
             $GLOBALS['DB']->exec("DELETE FROM cuisines_table;");
-        }
-
-        function update($new_name)
-        {
-            $GLOBALS['DB']->exec("UPDATE cuisines_table SET = '{$new_name}' WHERE id = {$this->getId()};");
-            $this->setName($new_name);
-        }
-
-        function delete()
-        {
-            $GLOBALS['DB']->exec("DELETE FROM cuisines_table WHERE id = {$this->getId()};");
         }
     }
 
