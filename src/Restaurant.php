@@ -75,6 +75,16 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function update($column_to_update, $new_information)
+        {
+            $GLOBALS['DB']->exec("UPDATE restaurants_table SET {$column_to_update}= '{$new_information}' WHERE id = {$this->getId()};");
+        }
+
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM restaurants_table WHERE id ={$this->getId()};");
+        }
+
         static function getAll()
         {
             $db_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants_table;");

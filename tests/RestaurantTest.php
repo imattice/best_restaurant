@@ -252,6 +252,66 @@
         }
 
 
+        function test_Update()
+        {
+            //Arrange
+            $name = "American";
+            $id = null;
+            $test_cuisine = new Cuisine($name, $id);
+            $test_cuisine->save();
+
+
+            $restaurant_name = "VQ";
+            $phone = '5032277342';
+            $address = "1220 SW 1st Ave, Portland, OR 97204";
+            $website = "http://www.veritablequandary.com/";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $cuisine_id);
+            $test_restaurant->save();
+
+            $column_to_update = "restaurant_name";
+            $new_information = "Veritable Quandary";
+
+            //Act
+            $test_restaurant->update($column_to_update, $new_information);
+
+            //Assert
+            $result = Restaurant::getAll();
+            $this->assertEquals("Veritable Quandary", $result[0]->getRestaurantName());
+        }
+
+        function test_Delete()
+        {
+            //Arrange
+            $name = "American";
+            $id = null;
+            $test_cuisine = new Cuisine($name, $id);
+            $test_cuisine->save();
+
+
+            $restaurant_name = "VQ";
+            $phone = '5032277342';
+            $address = "1220 SW 1st Ave, Portland, OR 97204";
+            $website = "http://www.veritablequandary.com/";
+            $cuisine_id = $test_cuisine->getId();
+            $test_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $cuisine_id);
+            $test_restaurant->save();
+
+            $restaurant_name2 = "Hot Lips Pizza";
+            $phone2 = '5035952342';
+            $address2 = "721 NW 9th Ave #150, Portland, OR 97209";
+            $website2 = "http://hotlipspizza.com/";
+            $test_restaurant2 = new Restaurant($restaurant_name2, $phone2, $address2, $website2, $cuisine_id);
+            $test_restaurant2->save();
+
+            //Act
+            $test_restaurant->delete();
+
+            //Assert
+            $this->assertEquals([$test_restaurant2], Restaurant::getAll());
+        }
+
+
 
 
 
