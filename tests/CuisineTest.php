@@ -1,17 +1,17 @@
 <?php
 
     /**
-    * @backupGlobals disables
+    * @backupGlobals disabled
     * @backupStatic Attributes disabled
     */
 
     require_once 'src/Cuisine.php';
     // require_once 'src/Restaurant.php';
 
-    // $server = 'mysql:host=localhost;dbname=best_restaurant_test';
-    // $username = 'root';
-    // $password = 'root';
-    // $DB = new PDO($server, $username, $password);
+    $server = 'mysql:host=localhost;dbname=best_restaurant_test';
+    $username = 'root';
+    $password = 'root';
+    $DB = new PDO($server, $username, $password);
 
     class CuisineTest extends PHPUnit_Framework_TestCase
     {
@@ -46,6 +46,20 @@
 
             //Assert
             $this->assertEquals(true, is_numeric($result));
+        }
+
+        function test_save()
+        {
+            //Arrange
+            $name = "VQ";
+            $test_Cuisine = new Cuisine($name);
+            $test_Cuisine->save();
+
+            //Act
+            $result = Cuisine::getAll();
+
+            //Assert
+            $this->assertEquals($test_category, $result[0]);
         }
     }
 
