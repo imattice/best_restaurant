@@ -7,9 +7,11 @@
         <div class="container">
             <h1>{{ cuisines.getName }}</h1>
 
+            <!-- checks to see if there are any restaurants to display -->
             {% if restaurants is not empty %}
                 <p>Here are the Restaurants:</p>
                 <ul>
+                    <!-- if there are restaurants, this code will loop through the array of existing restaurants and pull out the properties and reconstruct the restaurant -->
                     {% for restaurant in restaurants %}
                         <li><strong>{{ restaurant.getRestaurantName }}</strong></li>
                             <ul>
@@ -17,19 +19,26 @@
                                 <li>{{ restaurant.getAddress }}</li>
                                 <li>{{ restaurant.getWebsite }}</li>
                             </ul>
+
+                            <!-- this button redirects the user to a seperate edit page for this specific restaurant -->
                             <form action='/restaurant/{{ restaurant.getId }}/edit'>
                                 <div class="form-group">
                                     <button type="submit" class='btn btn-primary'>Edit this restaurant</button>
                                 </div>
                             </form>
+
+
                     {% endfor %}
                 </ul>
+                <!-- if there are no restaurants, display nothing -->
             {% endif %}
 
-            <h4>Add a Restaurant</h4>
 
+            <!-- Form for adding new restaurants within the current cuisine -->
+            <h4>Add a Restaurant</h4>
             <form action='/restaurants' method='post'>
                 <div class="form-group">
+                    <!-- hidden input that carries the cuisine id with the individual restaurant.  User will not see or edit this property -->
                     <input id='cuisine_id' name='cuisine_id' type='hidden' value='{{ cuisines.getId }}'>
                     <label for='restaurant_name'>Restaurant Name</label>
                     <input id='restaurant_name' name='restaurant_name' type='text'>
@@ -47,14 +56,18 @@
                     <input id='website' name='website' type='text'>
                 </div>
 
+                <!-- Adds new restaurant to cuisine -->
                 <button type='submit' class="btn btn-success">Add Restaurant</button>
             </form>
 
+            <!-- Allows user to edit the current cuisine properties -->
             <form action='/cuisines/{{ cuisines.getId }}/edit'>
                 <div class="form-group">
                     <button type="submit" class='btn btn-primary'>Edit this cuisine</button>
                 </div>
             </form>
+
+            <!-- Brings user back to homepage, displaying all cuisines -->
             <p><a href='/'>Home</a></p>
         </div>
     </body>
