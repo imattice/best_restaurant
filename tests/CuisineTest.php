@@ -6,7 +6,7 @@
     */
 
     require_once 'src/Cuisine.php';
-    // require_once 'src/Restaurant.php';
+    require_once 'src/Restaurant.php';
 
     $server = 'mysql:host=localhost;dbname=best_restaurant_test';
     $username = 'root';
