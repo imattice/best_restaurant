@@ -17,6 +17,11 @@
                                 <li>{{ restaurant.getAddress }}</li>
                                 <li>{{ restaurant.getWebsite }}</li>
                             </ul>
+                            <form action='/restaurant/{{ restaurant.getId }}/edit'>
+                                <div class="form-group">
+                                    <button type="submit" class='btn btn-primary'>Edit this restaurant</button>
+                                </div>
+                            </form>
                     {% endfor %}
                 </ul>
             {% endif %}
@@ -44,9 +49,10 @@
 
                 <button type='submit' class="btn btn-success">Add Restaurant</button>
             </form>
-            <form action='/delete_restaurants' method='post'>
+
+            <form action='/cuisines/{{ cuisines.getId }}/edit'>
                 <div class="form-group">
-                    <button type='submit' class='btn btn-danger'>Delete Restaurants</button>
+                    <button type="submit" class='btn btn-primary'>Edit this cuisine</button>
                 </div>
             </form>
             <p><a href='/'>Home</a></p>
