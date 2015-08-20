@@ -149,6 +149,38 @@
             //Assert
             $this->assertEquals([$test_cuisine2], Cuisine::getAll());
 
+        }
+
+        function testGetRestaurants()
+        {
+            //Arrange
+            $name = "American";
+            $id = null;
+            $test_cuisine = new Cuisine($name, $id);
+            $test_cuisine->save();
+
+            $test_cuisine_id = $test_cuisine->getId();
+
+            $restaurant_name = "VQ";
+            $phone = '5032277342';
+            $address = "1220 SW 1st Ave, Portland, OR 97204";
+            $website = "http://www.veritablequandary.com/";
+            $test_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $test_cuisine_id);
+            $test_restaurant->save();
+
+
+            $restaurant_name2 = "Hot Lips Pizza";
+            $phone2 = '5035952342';
+            $address2 = "721 NW 9th Ave #150, Portland, OR 97209";
+            $website2 = "http://hotlipspizza.com/";
+            $test_restaurant2 = new Restaurant($restaurant_name2, $phone2, $address2, $website2, $test_cuisine_id);
+            $test_restaurant2->save();
+
+            //Act
+            $result = $test_cuisine->getRestaurants();
+
+            //Assert
+            $this->assertEquals([$test_restaurant, $test_restaurant2], $result);
 
         }
     }

@@ -31,6 +31,24 @@
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
 
+        function getRestaurants()
+        {
+            $restaurants = Array();
+            $db_restaurants = $GLOBALS['DB']->query("SELECT * FROM restaurants_table WHERE cuisine_id = {$this->getId()};");
+            foreach ($db_restaurants as $restaurant) {
+                $restaurant_name = $restaurant['restaurant_name'];
+                $phone = $restaurant['phone'];
+                $address = $restaurant['address'];
+                $website = $restaurant['website'];
+                $cuisine_id = $restaurant['cuisine_id'];
+                $id = $restaurant['id'];
+                $new_restaurant = new Restaurant($restaurant_name, $phone, $address, $website, $cuisine_id, $id);
+                array_push($restaurants, $new_restaurant);
+            }
+            return $restaurants;
+        }
+
+
         function update($new_name)
         {
             $GLOBALS['DB']->exec("UPDATE cuisines_table SET = '{$new_name}' WHERE id = {$this->getId()};");
